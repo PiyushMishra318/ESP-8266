@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="ESP8266 DHT11 sensor logger to Google Sheets via PushingBox." />
+  <title>ESP8266 DHT11 Google Sheets Logger</title>
+  <link rel="stylesheet" href="/styles.css" />
+</head>
+<body>
+  <header class="header"><div class="header__inner">
+    <span class="badge">ESP8266 · PlatformIO</span>
+    <h1>ESP8266 DHT11 → Google Sheets</h1>
+    <p>NodeMCU firmware reads a DHT11 and logs temperature and humidity to Google Sheets via PushingBox.</p>
+  </div></header>
+  <main class="main">
+    <section class="card">
+      <h2>Wiring</h2>
+      <ol>
+        <li><strong>DHT11 VCC</strong> → NodeMCU 5V (Vin)</li>
+        <li><strong>DHT11 GND</strong> → GND</li>
+        <li><strong>DHT11 data</strong> → D4 (GPIO2)</li>
+      </ol>
+      <p>Flow: DHT11 → ESP8266 → PushingBox (HTTP) → Google Apps Script (HTTPS) → Google Sheet</p>
+    </section>
+    <section class="card">
+      <h2>Test your PushingBox device</h2>
+      <p>Enter <em>your</em> PushingBox device ID and sample sensor values. No secrets are stored — snippets are generated in your browser.</p>
+      <div class="field"><label for="devid">PushingBox device ID</label><input id="devid" type="text" placeholder="your-device-id" /></div>
+      <div class="grid-2">
+        <div class="field"><label for="humidity">Humidity (%)</label><input id="humidity" type="number" value="55.2" step="0.1" /></div>
+        <div class="field"><label for="celsius">Temp °C</label><input id="celsius" type="number" value="22.5" step="0.1" /></div>
+        <div class="field"><label for="fahrenheit">Temp °F</label><input id="fahrenheit" type="number" value="72.5" step="0.1" /></div>
+        <div class="field"><label for="hic">Heat index °C</label><input id="hic" type="number" value="23.0" step="0.1" /></div>
+      </div>
+      <div class="field"><label for="hif">Heat index °F</label><input id="hif" type="number" value="73.4" step="0.1" /></div>
+      <div class="actions">
+        <button type="button" class="btn" id="generate">Generate test request</button>
+        <button type="button" class="btn btn--ghost" id="send">Send test GET</button>
+      </div>
+      <pre id="curl-out">Fill in your device ID and click Generate.</pre>
+      <p id="result" style="color:var(--muted);margin-top:.75rem"></p>
+    </section>
+    <section class="card">
+      <h2>Setup checklist</h2>
+      <ol>
+        <li>Create a Google Sheet + deploy Apps Script web app</li>
+        <li>Add a PushingBox CustomURL service pointing at your script URL</li>
+        <li>Copy the PushingBox device ID into firmware <code>secrets.h</code></li>
+      </ol>
+      <div class="actions"><a class="btn btn--ghost" href="https://github.com/PiyushMishra318/ESP8266-DHT11-Google-Sheets-Logger">View on GitHub</a></div>
+    </section>
+  </main>
+  <footer class="footer"><p>MIT © 2026 · <a href="https://piyushm.dev">piyushm.dev</a></p></footer>
+  <script src="/app.js"></script>
+</body>
+</html>

@@ -7,8 +7,10 @@
   <title>ESP8266 DHT11 Google Sheets Logger</title>
   <link rel="stylesheet" href="/styles.css" />
 </head>
-<body>
-  <header class="header"><div class="header__inner">
+<body class="theme-iot">
+  <div class="bg-animation" aria-hidden="true"></div>
+  <header class="header">
+    <button type="button" id="theme-toggle" class="theme-toggle" aria-label="Toggle color theme" title="Toggle theme"><span class="theme-toggle__icon theme-toggle__icon--sun" aria-hidden="true">&#9728;</span><span class="theme-toggle__icon theme-toggle__icon--moon" aria-hidden="true">&#9789;</span></button><div class="header__inner">
     <span class="badge">ESP8266 · PlatformIO</span>
     <h1>ESP8266 DHT11 → Google Sheets</h1>
     <p>NodeMCU firmware reads a DHT11 and logs temperature and humidity to Google Sheets via PushingBox.</p>
@@ -55,5 +57,6 @@
   </main>
   <footer class="site-footer footer"><p>MIT © 2026 · <a href="https://piyushm.dev">piyushm.dev</a> · <a href="https://github.com/PiyushMishra318/ESP8266-DHT11-Google-Sheets-Logger" target="_blank" rel="noopener noreferrer">View on GitHub</a></p></footer>
   <script src="/app.js"></script>
+  <script src="/theme.js"></script>
 </body>
 </html>

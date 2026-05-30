@@ -1,4 +1,4 @@
-# ESP8266 DHT11 Google Sheets Logger
+# ESP8266-DHT11-Google-Sheets-Logger
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![PlatformIO](https://img.shields.io/badge/PlatformIO-ESP8266-orange.svg)](firmware/dht11_google_sheets/platformio.ini)
@@ -49,8 +49,8 @@ Wire DHT11 VCC to 5V (`Vin`), GND to GND, data to `D4`.
 ### 3. Firmware
 
 ```bash
-git clone git@github.com:PiyushMishra318/ESP-8266.git
-cd ESP-8266/firmware/dht11_google_sheets
+git clone git@github.com:PiyushMishra318/ESP8266-DHT11-Google-Sheets-Logger.git
+cd ESP8266-DHT11-Google-Sheets-Logger/firmware/dht11_google_sheets
 cp src/secrets.example.h src/secrets.h
 # edit secrets.h with WiFi SSID, password, and PushingBox device ID
 pio run -t upload

@@ -1,16 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;700&family=IBM+Plex+Sans:wght@400;600&display=swap" />
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="description" content="ESP8266 DHT11 sensor logger to Google Sheets via PushingBox." />
   <title>ESP8266 DHT11 Google Sheets Logger</title>
   <link rel="stylesheet" href="/styles.css" />
 </head>
-<body class="theme-iot">
+<body class="theme-iot portfolio-designed landing-page">
   <div class="bg-animation" aria-hidden="true"></div>
-  <header class="header">
-    <button type="button" id="theme-toggle" class="theme-toggle" aria-label="Toggle color theme" title="Toggle theme"><span class="theme-toggle__icon theme-toggle__icon--sun" aria-hidden="true">&#9728;</span><span class="theme-toggle__icon theme-toggle__icon--moon" aria-hidden="true">&#9789;</span></button><div class="header__inner">
+  <header class="header landing-hero">
+        <div class="header__top">
+      <a class="header__brand" href="https://piyushm.dev">piyushm.dev</a>
+      <button type="button" id="theme-toggle" class="theme-toggle" aria-label="Toggle color theme" title="Toggle theme"><span class="theme-toggle__icon theme-toggle__icon--sun" aria-hidden="true">&#9728;</span><span class="theme-toggle__icon theme-toggle__icon--moon" aria-hidden="true">&#9789;</span></button>
+    </div>
+<div class="header__inner">
     <span class="badge">ESP8266 · PlatformIO</span>
     <h1>ESP8266 DHT11 → Google Sheets</h1>
     <p>NodeMCU firmware reads a DHT11 and logs temperature and humidity to Google Sheets via PushingBox.</p>

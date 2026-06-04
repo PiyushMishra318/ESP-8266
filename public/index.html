@@ -3,158 +3,141 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="ESP8266 DHT11 sensor logger to Google Sheets via PushingBox." />
-  <title>ESP8266 DHT11 Google Sheets Logger</title>
+  <meta name="description" content="TrackTemp — ESP8266 + DHT11 firmware that logs temperature and humidity to Google Sheets via PushingBox." />
+  <title>TrackTemp · ESP8266 DHT11 Google Sheets logger</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Tektur:wght@500;700;800&family=Spectral:ital,wght@0,400;0,600;1,400&family=Fragment+Mono:ital@0;1&display=swap" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=IBM+Plex+Mono:wght@400;500&display=swap" />
   <link rel="stylesheet" href="styles.css" />
 </head>
-<body class="theme-logger landing-v2">
-  <div class="bg-animation" aria-hidden="true"></div>
-  <div class="grain" aria-hidden="true"></div>
-
-  <header class="header landing-hero landing-hero--split">
-    <div class="header__top">
-      <a class="header__brand" href="https://piyushm.dev">piyushm.dev</a>
+<body class="theme-tracktemp">
+  <header class="site-header">
+    <div class="site-header__bar">
+      <a class="site-header__brand" href="https://piyushm.dev/products/tracktemp/">TrackTemp</a>
       <button type="button" id="theme-toggle" class="theme-toggle" aria-label="Toggle color theme" title="Toggle theme">
         <span class="theme-toggle__icon theme-toggle__icon--sun" aria-hidden="true">&#9728;</span>
         <span class="theme-toggle__icon theme-toggle__icon--moon" aria-hidden="true">&#9789;</span>
       </button>
     </div>
 
-    <div class="header__inner">
-      <p class="eyebrow">Environmental telemetry</p>
-      <span class="badge">ESP8266 · DHT11 · PlatformIO</span>
-      <h1>Sheets logger for your climate node</h1>
-      <p class="header__lead">
-        NodeMCU firmware samples a DHT11 on a fixed interval and pushes temperature and humidity rows to Google Sheets through PushingBox — no cloud broker required.
+    <div class="hero">
+      <p class="hero__eyebrow">ESP8266 · DHT11 · PlatformIO</p>
+      <h1 class="hero__title">TrackTemp</h1>
+      <p class="hero__subtitle">
+        NodeMCU samples a DHT11 and pushes rows to Google Sheets through PushingBox — no cloud broker.
       </p>
-      <div class="hero-cta">
-        <a class="btn" href="#console">Open test console</a>
+      <div class="hero__actions">
+        <a class="btn btn--primary" href="#console">Open test console</a>
         <a class="btn btn--ghost" href="https://github.com/PiyushMishra318/ESP8266-DHT11-Google-Sheets-Logger" target="_blank" rel="noopener noreferrer">View on GitHub</a>
       </div>
-    </div>
 
-    <aside class="hero-panel hero-panel--readout" aria-hidden="true">
-      <div class="readout">
-        <div class="readout__header">
-          <span class="readout__tag">NODE-01</span>
-          <span class="readout__status"><span class="readout__led"></span> LIVE</span>
-        </div>
-        <div class="readout__channels">
-          <div class="readout__channel readout__channel--temp">
-            <span class="readout__label">TEMP</span>
-            <span class="readout__value">22.5<span class="readout__unit">°C</span></span>
-            <span class="readout__sub">72.5 °F</span>
+      <aside class="example-callout" aria-labelledby="example-heading">
+        <p id="example-heading" class="example-callout__label">Example — not live data</p>
+        <dl class="example-callout__values">
+          <div>
+            <dt>Temp</dt>
+            <dd>22.5 °C <span class="example-callout__muted">(72.5 °F)</span></dd>
           </div>
-          <div class="readout__channel readout__channel--hum">
-            <span class="readout__label">HUM</span>
-            <span class="readout__value">55.2<span class="readout__unit">%</span></span>
-            <span class="readout__sub">RH stable</span>
+          <div>
+            <dt>Humidity</dt>
+            <dd>55.2 % RH</dd>
           </div>
-        </div>
-        <div class="readout__trace" role="presentation">
-          <span></span><span></span><span></span><span></span><span></span>
-          <span></span><span></span><span></span><span></span><span></span>
-          <span></span><span></span><span></span><span></span><span></span>
-        </div>
-        <p class="readout__footer">D4 · GPIO2 · 30s interval</p>
-      </div>
-    </aside>
+        </dl>
+        <p class="example-callout__note">D4 · GPIO2 · 30 s interval in firmware</p>
+      </aside>
+    </div>
   </header>
 
-  <main class="page-main main">
-    <div class="stat-strip reveal">
-      <div class="stat-strip__item">
-        <span class="stat-strip__value">DHT11</span>
-        <span class="stat-strip__label">On-board sensor</span>
-      </div>
-      <div class="stat-strip__item">
-        <span class="stat-strip__value">HTTP</span>
-        <span class="stat-strip__label">PushingBox relay</span>
-      </div>
-      <div class="stat-strip__item">
-        <span class="stat-strip__value">Sheets</span>
-        <span class="stat-strip__label">Apps Script ingest</span>
-      </div>
-    </div>
+  <main class="page-main">
+    <div class="work-layout">
+      <aside class="sidebar">
+        <section class="card card--wiring">
+          <h2 class="card__title">Wiring</h2>
+          <ol class="wiring-list">
+            <li><strong>DHT11 VCC</strong> → NodeMCU 5V (Vin)</li>
+            <li><strong>DHT11 GND</strong> → GND</li>
+            <li><strong>DHT11 data</strong> → D4 (GPIO2)</li>
+          </ol>
+          <div class="flow-chain" aria-label="Data flow">
+            <span>DHT11</span>
+            <span class="flow-chain__arrow" aria-hidden="true">→</span>
+            <span>ESP8266</span>
+            <span class="flow-chain__arrow" aria-hidden="true">→</span>
+            <span>PushingBox</span>
+            <span class="flow-chain__arrow" aria-hidden="true">→</span>
+            <span>Apps Script</span>
+            <span class="flow-chain__arrow" aria-hidden="true">→</span>
+            <span>Sheet</span>
+          </div>
+        </section>
 
-    <div class="dashboard-grid reveal">
-      <section class="card card--wiring">
-        <h2 class="card__title"><span class="card__icon" aria-hidden="true">⎔</span> Wiring</h2>
-        <ol class="wiring-list">
-          <li><strong>DHT11 VCC</strong> → NodeMCU 5V (Vin)</li>
-          <li><strong>DHT11 GND</strong> → GND</li>
-          <li><strong>DHT11 data</strong> → D4 (GPIO2)</li>
-        </ol>
-        <div class="flow-chain" aria-label="Data flow">
-          <span>DHT11</span>
-          <span class="flow-chain__arrow" aria-hidden="true">→</span>
-          <span>ESP8266</span>
-          <span class="flow-chain__arrow" aria-hidden="true">→</span>
-          <span>PushingBox</span>
-          <span class="flow-chain__arrow" aria-hidden="true">→</span>
-          <span>Apps Script</span>
-          <span class="flow-chain__arrow" aria-hidden="true">→</span>
-          <span>Sheet</span>
-        </div>
-      </section>
+        <section class="card card--checklist">
+          <h2 class="card__title">Setup checklist</h2>
+          <ol class="checklist">
+            <li>Create a Google Sheet and deploy the Apps Script web app</li>
+            <li>Add a PushingBox CustomURL service pointing at your script URL</li>
+            <li>Copy the PushingBox device ID into firmware <code>secrets.h</code></li>
+          </ol>
+          <a class="btn btn--ghost btn--block" href="https://github.com/PiyushMishra318/ESP8266-DHT11-Google-Sheets-Logger" target="_blank" rel="noopener noreferrer">Repository &amp; firmware</a>
+        </section>
+      </aside>
 
       <section class="card card--console" id="console">
-        <h2 class="card__title"><span class="card__icon" aria-hidden="true">▣</span> Test console</h2>
-        <p class="demo-note">
-          Enter <em>your</em> PushingBox device ID and sample sensor values. Nothing is stored server-side — requests are built in your browser.
-        </p>
-        <div class="field">
+        <header class="console-header">
+          <h2 class="card__title card__title--console">Test console</h2>
+          <p class="console-header__hint">
+            Enter <em>your</em> PushingBox device ID and sample values. Requests are built in your browser — nothing is stored server-side.
+          </p>
+        </header>
+
+        <div class="field field--device">
           <label for="devid">PushingBox device ID</label>
           <input id="devid" type="text" placeholder="your-device-id" autocomplete="off" spellcheck="false" />
         </div>
-        <div class="sensor-grid">
-          <div class="field field--temp">
-            <label for="humidity">Humidity (%)</label>
-            <input id="humidity" type="number" value="55.2" step="0.1" />
+
+        <fieldset class="sensor-fields">
+          <legend class="sensor-fields__legend">Sensor values</legend>
+          <div class="sensor-grid">
+            <div class="field">
+              <label for="humidity">Humidity (%)</label>
+              <input id="humidity" type="number" value="55.2" step="0.1" />
+            </div>
+            <div class="field">
+              <label for="celsius">Temp °C</label>
+              <input id="celsius" type="number" value="22.5" step="0.1" />
+            </div>
+            <div class="field">
+              <label for="fahrenheit">Temp °F</label>
+              <input id="fahrenheit" type="number" value="72.5" step="0.1" />
+            </div>
           </div>
-          <div class="field field--hum">
-            <label for="celsius">Temp °C</label>
-            <input id="celsius" type="number" value="22.5" step="0.1" />
-          </div>
-          <div class="field field--temp">
-            <label for="fahrenheit">Temp °F</label>
-            <input id="fahrenheit" type="number" value="72.5" step="0.1" />
-          </div>
-          <div class="field field--hum">
-            <label for="hic">Heat index °C</label>
-            <input id="hic" type="number" value="23.0" step="0.1" />
-          </div>
-          <div class="field field--temp field--wide">
-            <label for="hif">Heat index °F</label>
-            <input id="hif" type="number" value="73.4" step="0.1" />
-          </div>
-        </div>
+
+          <details class="sensor-advanced">
+            <summary>Advanced (heat index)</summary>
+            <div class="sensor-grid sensor-grid--advanced">
+              <div class="field">
+                <label for="hic">Heat index °C</label>
+                <input id="hic" type="number" value="23.0" step="0.1" />
+              </div>
+              <div class="field">
+                <label for="hif">Heat index °F</label>
+                <input id="hif" type="number" value="73.4" step="0.1" />
+              </div>
+            </div>
+          </details>
+        </fieldset>
+
         <div class="actions">
-          <button type="button" class="btn" id="generate">Generate test request</button>
+          <button type="button" class="btn btn--primary" id="generate">Generate test request</button>
           <button type="button" class="btn btn--ghost" id="send">Send test GET</button>
         </div>
         <pre id="curl-out" class="terminal-out">Fill in your device ID and click Generate.</pre>
         <p id="result" class="result-line"></p>
       </section>
     </div>
-
-    <section class="card card--checklist reveal">
-      <h2 class="card__title"><span class="card__icon" aria-hidden="true">◎</span> Setup checklist</h2>
-      <ol class="checklist">
-        <li>Create a Google Sheet and deploy the Apps Script web app</li>
-        <li>Add a PushingBox CustomURL service pointing at your script URL</li>
-        <li>Copy the PushingBox device ID into firmware <code>secrets.h</code></li>
-      </ol>
-      <div class="actions">
-        <a class="btn btn--ghost" href="https://github.com/PiyushMishra318/ESP8266-DHT11-Google-Sheets-Logger" target="_blank" rel="noopener noreferrer">Repository &amp; firmware</a>
-      </div>
-    </section>
   </main>
 
-  <footer class="site-footer footer">
+  <footer class="site-footer">
     <p>MIT © 2026 · <a href="https://piyushm.dev">piyushm.dev</a> · <a href="https://piyushm.dev/products/tracktemp/">TrackTemp</a> · <a href="https://github.com/PiyushMishra318/ESP8266-DHT11-Google-Sheets-Logger" target="_blank" rel="noopener noreferrer">GitHub</a></p>
   </footer>
 
